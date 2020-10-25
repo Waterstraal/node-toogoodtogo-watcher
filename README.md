@@ -1,5 +1,7 @@
 # node-toogoodtogo-watcher [![GitHub license](https://img.shields.io/github/license/marklagendijk/node-toogoodtogo-watcher)](https://github.com/marklagendijk/node-toogoodtogo-watcher/blob/master/LICENSE) [![npm](https://img.shields.io/npm/v/toogoodtogo-watcher)](https://www.npmjs.com/package/toogoodtogo-watcher) [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/marklagendijk/toogoodtogo-watcher)](https://hub.docker.com/r/marklagendijk/toogoodtogo-watcher/builds) [![Docker Pulls](https://img.shields.io/docker/pulls/marklagendijk/toogoodtogo-watcher)](https://hub.docker.com/r/marklagendijk/toogoodtogo-watcher)
+
 Node.js cli tool for monitoring your favorite TooGoodToGo businesses. Notifications are shown when the stock of any of the businesses changes. The following notification types are supported:
+
 - Desktop notification
 - Console output
 - Telegram chat message
@@ -7,12 +9,14 @@ Node.js cli tool for monitoring your favorite TooGoodToGo businesses. Notificati
 See [below for Docker usage](#docker).
 
 ## Installation
+
 1. Install Node.js 8.x or higher ([Windows](https://nodejs.org/en/download/current/) | [Linux](https://github.com/nodesource/distributions#debinstall) | [OSx](https://nodejs.org/en/download/current/)).
 2. `npm install -g toogoodtogo-watcher`
 3. `toogoodtogo-watcher config`. Fill in your TooGoodToGo account details. Optionally enable / disable certain notifications. See [Configuring Telegram notifiations](#configuring-telegram-notifiations) for instructions on setting up the Telegram notifications.
 4. `toogoodtogo-watcher watch`
 
 ## CLI documentation
+
 ```
 Usage: toogoodtogo-watcher <command>
 
@@ -28,13 +32,15 @@ Options:
 ```
 
 ## Displaying the notifications in the Windows notification center
+
 By default Windows doesn't display the notifications in the notification center. You can enable this by doing the following steps.
 
 1. Go to 'notifications & actions settings' (`Windows key`, type 'notifications', `enter`)
 2. Click on the 'toast' app at the bottom of the screen.
 3. Enable the 'show in action center' checkbox.
 
-## Configuring Telegram notifiations
+## Configuring Telegram notifications
+
 1. Open a Telegram chat with `BotFather`.
 2. Follow the instructions to create your own bot.
 3. Copy the token and enter it in the configuration via `toogoodtogo-watcher config`, and set `enabled` to `true`.
@@ -44,22 +50,26 @@ By default Windows doesn't display the notifications in the notification center.
 7. Your bot should greet you, and show a notification about your favorites. Note: the bot will show the favorites which you configured. Multiple people can connect to the bot to get updates about these favorites.
 
 ## Configure IFTTT integration
+
 1. Go to https://ifttt.com/create/
 2. Click on `this` and select **Webhooks**
 3. Fill in an **Event Name** (e.g. `too_good_to_go_updated`)
-4. Click on `that` 
+4. Click on `that`
 5. Select anything you'd like to integrate with (e.g. Philips Hue)
-6. Finish setting it up 
+6. Finish setting it up
 7. Update the `ifttt` configuration via `toogoodtogo-watcher config`:
-    - set `enabled` to `true`
-    - set `webhookKey` to the token found at [Web Hook settings](https://ifttt.com/services/maker_webhooks/settings) (last part of the URL)
-    - set `webhookName` to the Event Name selected in step 3
+   - set `enabled` to `true`
+   - set `webhookKey` to the token found at [Web Hook settings](https://ifttt.com/services/maker_webhooks/settings) (last part of the URL)
+   - add the **Event Name** selected in step 3 to the `webhookEvents` array
+
+Note: You can add multiple events to `webhookEvents`
 
 ## Docker
-Create a directory `config` and copy the [config.defaults.json](https://github.com/marklagendijk/node-toogoodtogo-watcher/blob/master/config.defaults.json) to `config/config.json`. 
-See above for instructions on how to configure the application.
+
+Create a directory `config` and copy the [config.defaults.json](https://github.com/marklagendijk/node-toogoodtogo-watcher/blob/master/config.defaults.json) to `config/config.json`. See above for instructions on how to configure the application.
 
 ### Docker run
+
 ```
 docker run \
  --name toogoodtogo-watcher \
@@ -70,6 +80,7 @@ docker run \
 ### Docker Compose
 
 `docker-compose.yaml`:
+
 ```yaml
 version: "3"
 services:
@@ -79,4 +90,3 @@ services:
     volumes:
       - ./config:/home/node/.config/toogoodtogo-watcher-nodejs
 ```
-
